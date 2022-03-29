@@ -1,0 +1,5 @@
+create-jdbc-connection-pool --datasourceclassname org.postgresql.ds.PGSimpleDataSource --restype javax.sql.DataSource airlab-pool
+set resources.jdbc-connection-pool.demo-pool.property.password=katiusha resources.jdbc-connection-pool.demo-pool.property.databaseName=airlab resources.jdbc-connection-pool.demo-pool.property.serverName=localhost resources.jdbc-connection-pool.demo-pool.property.user=mufufu resources.jdbc-connection-pool.demo-pool.property.portNumber=5432
+
+create-jdbc-resource --enabled=true --poolName=airlab-pool --target=domain jdbc/airlab-db
+create-resource-ref --enabled=true --target=server jdbc/airlab-db
