@@ -5,6 +5,7 @@
  */
 package controllers;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import entities.GasRead;
 import java.util.Base64;
 import java.util.Date;
@@ -15,7 +16,8 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceUnit;
-
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 /**
  *
@@ -87,13 +89,17 @@ public class AirLabController {
         em.persist(gr);
         LOG.info("He persistido");
         */
-        JSONObject jo = new JSONObject(msg);
-        Number port = jo.getNumber("port");
-        String data = jo.getString("data");
-        String device = jo.getString("deviceName");
-        if (port.equals(1)) {
-            LOG.info("Port 1");
+        //JSONObject jo = new JSONObject(msg);
+
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            ObjectNode node = mapper.readValue(msg, ObjectNode.class);
+            String device = node.get("deviceName").asText();
+            LOG.log(Level.INFO,"Device Name: {0}", device);
             
+        } catch (JsonProcessingException ex) {
+            Logger.getLogger(AirLabController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
     }
 }
