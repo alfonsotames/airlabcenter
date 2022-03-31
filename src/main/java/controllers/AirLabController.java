@@ -19,6 +19,7 @@ import javax.persistence.PersistenceUnit;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import entities.OPCRead;
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
@@ -52,37 +53,7 @@ public class AirLabController {
         em.persist(gr);
         LOG.info("He persistido");        
     }
-    
-    public void storeGasRead(String device, String data) {
-        
-        byte[] decodedBytes = Base64.getDecoder().decode(data);
-        String decodedString = new String(decodedBytes);
-        String[] d = decodedString.split("|");
-        
-        GasRead gr = new GasRead();
-        gr.setDevice(device);
-        gr.setDate(new Date());
-        gr.setSo2we(Float.parseFloat(d[1]));
-        gr.setSo2ae(Float.parseFloat(d[2]));
-        gr.setO3n2we(Float.parseFloat(d[3]));
-        gr.setO3n2ae(Float.parseFloat(d[4]));
-        gr.setNo2we(Float.parseFloat(d[5]));
-        gr.setNo2ae(Float.parseFloat(d[6]));
-        gr.setCowe(Float.parseFloat(d[7]));
-        gr.setCoae(Float.parseFloat(d[8]));
-        gr.setRh(Float.parseFloat(d[9]));
-        gr.setTemp(Float.parseFloat(d[10]));
-        gr.setPress(Float.parseFloat(d[11]));
-        
-        LOG.log(Level.INFO, "Device: {0}", gr.getDevice());
-        em.persist(gr);
-        
-    }
-    
-    public void storeOPCRead(String device, String data) {
-        
-    }
-    
+
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
 
@@ -104,7 +75,7 @@ public class AirLabController {
             byte[] decodedBytes = Base64.getDecoder().decode(data);
             String decodedData = new String(decodedBytes);
             LOG.log(Level.INFO, "Decoded Data: {0}", decodedData);
-            String[] d = decodedData.split("\\|");
+            String[] d = decodedData.substring(0,decodedData.length()-1).split("\\|");
             /*
             for (String s : d) {
                 LOG.info(s);
@@ -112,7 +83,7 @@ public class AirLabController {
             */
             if (port.equals(1)) {
                 LOG.info("Port 1 - GasRead");
-                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss", Locale.ENGLISH);
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.ENGLISH);
                 Date date = null;
                 try {
                     date = formatter.parse(d[0]);
@@ -122,23 +93,23 @@ public class AirLabController {
                 GasRead gr = new GasRead();
                 gr.setDevice(device);
                 gr.setDate(date);
-                gr.setSo2we(Float.parseFloat(d[1]));
-                gr.setSo2ae(Float.parseFloat(d[2]));
-                gr.setO3n2we(Float.parseFloat(d[3]));
-                gr.setO3n2ae(Float.parseFloat(d[4]));
-                gr.setNo2we(Float.parseFloat(d[5]));
-                gr.setNo2ae(Float.parseFloat(d[6]));
-                gr.setCowe(Float.parseFloat(d[7]));
-                gr.setCoae(Float.parseFloat(d[8]));
-                gr.setRh(Float.parseFloat(d[9]));
-                gr.setTemp(Float.parseFloat(d[10]));
-                gr.setPress(Float.parseFloat(d[11]));                
+                gr.setSo2we(new BigDecimal(d[1]));
+                gr.setSo2ae(new BigDecimal(d[2]));
+                gr.setO3n2we(new BigDecimal(d[3]));
+                gr.setO3n2ae(new BigDecimal(d[4]));
+                gr.setNo2we(new BigDecimal(d[5]));
+                gr.setNo2ae(new BigDecimal(d[6]));
+                gr.setCowe(new BigDecimal(d[7]));
+                gr.setCoae(new BigDecimal(d[8]));
+                gr.setRh(new BigDecimal(d[9]));
+                gr.setTemp(new BigDecimal(d[10]));
+                gr.setPress(new BigDecimal(d[11]));                
                 em.persist(gr);
                 LOG.info("GasRead Stored");
             }
             if (port.equals(2)) {
                 LOG.info("Port 1 - OPCRead");
-                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss", Locale.ENGLISH);
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.ENGLISH);
                 Date date = null;
                 try {
                     date = formatter.parse(d[0]);
@@ -146,16 +117,20 @@ public class AirLabController {
                     Logger.getLogger(AirLabController.class.getName()).log(Level.SEVERE, null, ex);
                 }                
                 OPCRead or = new OPCRead();
+                try {
                 or.setDevice(device);
                 or.setDate(date);
-                or.setPeriod(Float.parseFloat(d[1]));
-                or.setGf(Float.parseFloat(d[2]));
-                or.setPm1(Float.parseFloat(d[3]));
-                or.setPm10(Float.parseFloat(d[4]));
-                or.setPm25(Float.parseFloat(d[5]));
-                or.setRh(Float.parseFloat(d[6]));
-                or.setTemp(Float.parseFloat(d[7]));
-                or.setPress(Float.parseFloat(d[8]));
+                or.setPeriod(new BigDecimal(d[1]));
+                or.setGf(new BigDecimal(d[2]));
+                or.setPm1(new BigDecimal(d[3]));
+                or.setPm10(new BigDecimal(d[4]));
+                or.setPm25(new BigDecimal(d[5]));
+                or.setRh(new BigDecimal(d[6]));
+                or.setTemp(new BigDecimal(d[7]));
+                or.setPress(new BigDecimal(d[8]));
+                } catch(NumberFormatException e) {
+                    LOG.log(Level.SEVERE, "Error at OPCRead init: {0}",e.getMessage());
+                }
                 em.persist(or);
                 LOG.info("OPCRead Stored");
             }           

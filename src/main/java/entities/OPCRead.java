@@ -6,7 +6,9 @@
 package entities;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -52,112 +54,112 @@ public class OPCRead implements Serializable {
     /**
      * @return the period
      */
-    public Number getPeriod() {
+    public BigDecimal getPeriod() {
         return period;
     }
 
     /**
      * @param period the period to set
      */
-    public void setPeriod(Number period) {
+    public void setPeriod(BigDecimal period) {
         this.period = period;
     }
 
     /**
      * @return the gf
      */
-    public Number getGf() {
+    public BigDecimal getGf() {
         return gf;
     }
 
     /**
      * @param gf the gf to set
      */
-    public void setGf(Number gf) {
+    public void setGf(BigDecimal gf) {
         this.gf = gf;
     }
 
     /**
      * @return the pm1
      */
-    public Number getPm1() {
+    public BigDecimal getPm1() {
         return pm1;
     }
 
     /**
      * @param pm1 the pm1 to set
      */
-    public void setPm1(Number pm1) {
+    public void setPm1(BigDecimal pm1) {
         this.pm1 = pm1;
     }
 
     /**
      * @return the pm25
      */
-    public Number getPm25() {
+    public BigDecimal getPm25() {
         return pm25;
     }
 
     /**
      * @param pm25 the pm25 to set
      */
-    public void setPm25(Number pm25) {
+    public void setPm25(BigDecimal pm25) {
         this.pm25 = pm25;
     }
 
     /**
      * @return the pm10
      */
-    public Number getPm10() {
+    public BigDecimal getPm10() {
         return pm10;
     }
 
     /**
      * @param pm10 the pm10 to set
      */
-    public void setPm10(Number pm10) {
+    public void setPm10(BigDecimal pm10) {
         this.pm10 = pm10;
     }
 
     /**
      * @return the rh
      */
-    public Number getRh() {
+    public BigDecimal getRh() {
         return rh;
     }
 
     /**
      * @param rh the rh to set
      */
-    public void setRh(Number rh) {
+    public void setRh(BigDecimal rh) {
         this.rh = rh;
     }
 
     /**
      * @return the temp
      */
-    public Number getTemp() {
+    public BigDecimal getTemp() {
         return temp;
     }
 
     /**
      * @param temp the temp to set
      */
-    public void setTemp(Number temp) {
+    public void setTemp(BigDecimal temp) {
         this.temp = temp;
     }
 
     /**
      * @return the press
      */
-    public Number getPress() {
+    public BigDecimal getPress() {
         return press;
     }
 
     /**
      * @param press the press to set
      */
-    public void setPress(Number press) {
+    public void setPress(BigDecimal press) {
         this.press = press;
     }
 
@@ -169,14 +171,24 @@ public class OPCRead implements Serializable {
     private String device;
     @Temporal(TemporalType.TIMESTAMP)
     private Date date;
-    private Number period;
-    private Number gf;
-    private Number pm1;
-    private Number pm25;
-    private Number pm10;
-    private Number rh;
-    private Number temp;
-    private Number press;
+    @Column(precision = 10, scale = 2)
+    private BigDecimal period;
+    @Column(precision = 10, scale = 2)
+    private BigDecimal gf;
+    @Column(precision = 10, scale = 2)
+    private BigDecimal pm1;
+    @Column(precision = 10, scale = 2)
+    private BigDecimal pm25;
+    @Column(precision = 10, scale = 2)
+    private BigDecimal pm10;
+    @Column(precision = 10, scale = 2)
+    private BigDecimal rh;
+    @Column(precision = 10, scale = 2)
+    private BigDecimal temp;
+    @Column(precision = 10, scale = 2)
+    private BigDecimal press;
+
+
 
     public Long getId() {
         return id;
@@ -189,7 +201,7 @@ public class OPCRead implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        hash += (getId() != null ? getId().hashCode() : 0);
         return hash;
     }
 
@@ -200,7 +212,7 @@ public class OPCRead implements Serializable {
             return false;
         }
         OPCRead other = (OPCRead) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if ((this.getId() == null && other.getId() != null) || (this.getId() != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -208,7 +220,7 @@ public class OPCRead implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.OPCRead[ id=" + id + " ]";
+        return "entities.OPCRead[ id=" + getId() + " ]";
     }
     
 }

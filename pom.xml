@@ -31,11 +31,6 @@
 
     <dependencies>
         <dependency>
-            <groupId>jakarta.platform</groupId>
-            <artifactId>jakarta.jakartaee-web-api</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
             <groupId>jakarta.enterprise.concurrent</groupId>
             <artifactId>jakarta.enterprise.concurrent-api</artifactId>
             <scope>provided</scope>
@@ -50,6 +45,7 @@
             <artifactId>jakarta.batch-api</artifactId>
             <scope>provided</scope>
         </dependency>
+        
         <dependency>
             <groupId>org.eclipse.microprofile</groupId>
             <artifactId>microprofile</artifactId>
@@ -83,6 +79,33 @@
             <artifactId>jackson-databind</artifactId>
             <version>2.11.1</version>
         </dependency>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.2.15.jre7</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.primefaces</groupId>
+            <artifactId>primefaces</artifactId>
+            <version>11.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.platform</groupId>
+            <artifactId>jakarta.jakartaee-api</artifactId>
+            <version>8.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.platform</groupId>
+            <artifactId>jakarta.jakartaee-web-api</artifactId>
+            <version>8.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
+            <version>4.0.4</version>
+            <scope>provided</scope>
+        </dependency>        
     </dependencies>
 
     <build>
@@ -118,8 +141,16 @@
                         </option>
                         <option>
                             <key>--deploy</key>
+                            <value>${project.build.directory}/mqtt-rar-0.6.0.rar</value>
+                        </option>                         
+                        <option>
+                            <key>--deploy</key>
                             <value>${project.build.directory}/${project.build.finalName}</value>
-                        </option>
+                        </option>                      
+                        <option>
+                            <key>--postbootcommandfile</key>
+                            <value>${project.build.directory}/classes/MICRO-INF/post-boot-commands.txt</value>
+                        </option>                         
                     </commandLineOptions>
                     <contextRoot>/</contextRoot>
                 </configuration>

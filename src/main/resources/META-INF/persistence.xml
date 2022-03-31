@@ -6,6 +6,10 @@
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="eclipselink.ddl-generation" value="create-tables"/>
+      <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
+      <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/airlab" />
+      <property name="javax.persistence.jdbc.user" value="airlab" />
+      <property name="javax.persistence.jdbc.password" value="katiusha" />
     </properties>
   </persistence-unit>
 </persistence>
