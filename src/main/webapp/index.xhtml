@@ -14,8 +14,41 @@
     <h:body>
         <img src="https://centromariomolina.org/wp-content/themes/cmm2/images/logocentromariomolina.gif" />
         <h3>Programa Piloto de Sensores de Bajo Costo para Medición de Calidad de Aire</h3>
-        <p><a href="DownloadGasRead">Descargar Lecturas de Gases</a></p>
-        <p><a href="DownloadOPCRead">Descargar Lecturas de Conteo de Partículas</a></p>
+        <!--<img src="images/sensor_so2.png" style="width: 100px;"/> -->
+        <p>
+            <a href="DownloadGasRead">Descargar Lecturas de Gases [RAW]</a> <br/>
+            Formato: FECHA|SENSOR|SO2|O3|NO2|CO|RH|TEMP|PRESS
+        </p>
+        <p>
+            <a href="DownloadOPCRead">Descargar Lecturas de Conteo de Partículas [RAW]</a> <br/>
+            Formato: FECHA|SENSOR|PERIODO(s)|FLUJO|PM2.5|PM10|RH|TEMP|PRESS
+        </p>
+        <div style="border: 1px solid grey; overflow: auto; width: 50%; padding: 10px; float:left; ">    
+            <span style="font-family: sans-serif; font-size: 24px;">Sensor 1</span>
+            <p:chart type="line" model="#{alc.getChartModel('airlab-001', 'SO2')}" style="height:300px;"/>
+            <p:chart type="line" model="#{alc.getChartModel('airlab-001', 'O3')}" style="height:300px;"/>
+            <p:chart type="line" model="#{alc.getChartModel('airlab-001', 'NO2')}" style="height:300px;"/>
+            <p:chart type="line" model="#{alc.getChartModel('airlab-001', 'CO')}" style="height:300px;"/>
+            <p:chart type="line" model="#{alc.getChartModel('airlab-001', 'TEMP')}" style="height:300px;"/>
+            <p:chart type="line" model="#{alc.getChartModel('airlab-001', 'RH')}" style="height:300px;"/>
+            <p:chart type="line" model="#{alc.getChartModel('airlab-001', 'PRESS')}" style="height:300px;"/>
+            <p:chart type="line" model="#{alc.getChartModel('airlab-001', 'PM10')}" style="height:300px;"/>
+            <p:chart type="line" model="#{alc.getChartModel('airlab-001', 'PM25')}" style="height:300px;"/>
+        </div>
+        <div style="border: 1px solid grey; overflow: auto; width: 50%; padding: 10px; float:left; ">    
+            <span style="font-family: sans-serif; font-size: 24px;">Sensor 2</span>
+            <p:chart type="line" model="#{alc.getChartModel('airlab-002', 'SO2')}" style="height:300px;"/>
+            <p:chart type="line" model="#{alc.getChartModel('airlab-002', 'O3')}" style="height:300px;"/>
+            <p:chart type="line" model="#{alc.getChartModel('airlab-002', 'NO2')}" style="height:300px;"/>
+            <p:chart type="line" model="#{alc.getChartModel('airlab-002', 'CO')}" style="height:300px;"/>
+            <p:chart type="line" model="#{alc.getChartModel('airlab-002', 'TEMP')}" style="height:300px;"/>
+            <p:chart type="line" model="#{alc.getChartModel('airlab-002', 'RH')}" style="height:300px;"/>
+            <p:chart type="line" model="#{alc.getChartModel('airlab-002', 'PRESS')}" style="height:300px;"/> 
+            <p:chart type="line" model="#{alc.getChartModel('airlab-002', 'PM10')}" style="height:300px;"/>
+            <p:chart type="line" model="#{alc.getChartModel('airlab-002', 'PM25')}" style="height:300px;"/> 
+        </div>        
+
+        
     </h:body>
 </html>
 

@@ -43,20 +43,20 @@ public class DownloadGasRead extends HttpServlet {
         response.setContentType("text/plain;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-             List<GasRead> lista = em.createQuery("select g from GasRead g order by g.date desc").getResultList();
+             List<GasRead> lista = em.createQuery("select g from GasRead g order by g.id desc").getResultList();
              
              for (GasRead g : lista) {
                  out.println(
                          g.getDate()+"|"+
                          g.getDevice()+"|"+
-                         g.getSo2we()+"|"+
-                         g.getSo2ae()+"|"+
-                         g.getO3n2we()+"|"+
-                         g.getO3n2ae()+"|"+
-                         g.getNo2we()+"|"+
-                         g.getNo2ae()+"|"+
-                         g.getCowe()+"|"+
-                         g.getCoae()+"|"+
+                         String.format("%.2f",((g.getSo2we().doubleValue())-331)*0.4) +"|"+
+
+                         String.format("%.2f",((g.getO3n2we().doubleValue())+25)*2)+"|"+
+
+                         String.format("%.2f",((g.getNo2we().doubleValue())-220)*1.2)+"|"+
+
+                         String.format("%.2f",((g.getCowe().doubleValue())*0.002504)-0.7)+"|"+
+
                          g.getRh()+"|"+
                          g.getTemp()+"|"+
                          g.getPress());

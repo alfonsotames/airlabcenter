@@ -42,17 +42,17 @@ public class DownloadOPCRead extends HttpServlet {
         response.setContentType("text/plain;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-             List<OPCRead> lista = em.createQuery("select o from OPCRead o order by o.date desc").getResultList();
+             List<OPCRead> lista = em.createQuery("select o from OPCRead o order by o.id desc").getResultList();
              
              for (OPCRead o : lista) {
-                 out.println(o.getDate()+"|"+
+                 out.println(
                          o.getDate()+"|"+
                          o.getDevice()+"|"+
                          o.getPeriod()+"|"+
                          o.getGf()+"|"+
-                         o.getPm1()+"|"+
-                         o.getPm25()+"|"+
-                         o.getPm10()+"|"+
+                         //o.getPm1()+"|"+
+                         String.format("%.2f",((o.getPm25().doubleValue()*1.6)+11))+"|"+
+                         String.format("%.2f",((o.getPm10().doubleValue()*1.6)+11))+"|"+
                          o.getRh()+"|"+
                          o.getTemp()+"|"+
                          o.getPress()
